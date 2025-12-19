@@ -8,8 +8,5 @@
       "src": "/((?!.*\\.\\w+$).*)",
       "dest": "/index.js"
     }
-  ],
-  "functions": {
-    "api/send-email.js": { "runtime": "nodejs" }
-  }
+  ]
 }
