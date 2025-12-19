@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @font-face {
+        font-family: 'Pretendard-Bold';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
+          format('woff');
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #container {
+        width: 100%;
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #core {
+        width: 600px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      #projectName {
+        text-align: center;
+        font-family: 'Pretendard-Bold';
+        font-size: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 120px;
+      }
+
+      #selection {
+        display: flex;
+        justify-content: right;
+        font-family: 'Pretendard-Bold';
+        gap: 5px;
+      }
+
+      .selectionButton {
+        border: 2.5px solid darkslategray;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19),
+          0 4px 13px rgba(0, 0, 0, 0.05);
+        padding: 5px 20px;
+        border-radius: 100px;
+        text-align: center;
+        transition: background-color 0.2s;
+        cursor: pointer;
+      }
+
+      .selectionButton:hover {
+        background-color: rgb(243, 243, 243);
+      }
+
+      .blue {
+        background-color: rgb(196, 217, 255) !important;
+      }
+
+      #actionWindow {
+        border: 2.5px solid darkslategray;
+        background-color: rgb(232, 249, 255);
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19),
+          0 4px 13px rgba(0, 0, 0, 0.23);
+        flex: 1;
+        display: flex;
+        overflow-x: hidden;
+      }
+
+      #loginWindow {
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        justify-content: center;
+        height: 100%;
+        box-sizing: border-box;
+        gap: 15px;
+        min-width: 100%;
+      }
+
+      #signupWindow {
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        height: 100%;
+        box-sizing: border-box;
+        gap: 15px;
+        min-width: 100%;
+        overflow-y: scroll;
+      }
+
+      #typeSelection {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        font-size: 20px;
+        font-family: 'Pretendard-Bold';
+      }
+
+      #typeSelection > div > *,
+      #typeSelection > div {
+        cursor: pointer !important;
+      }
+
+      input[type='radio'] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        border: 1px solid gray;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+      }
+
+      select {
+        outline: none;
+      }
+
+      input[type='radio']:checked {
+        background-color: black;
+        border: 3px solid rgb(232, 249, 255);
+        box-shadow: 0 0 0 1px black;
+      }
+
+      .idpw {
+        display: block;
+        border: none;
+        background-color: white;
+        height: 50px;
+        font-size: 17px;
+        border-radius: 20px;
+        padding: 3px 20px;
+        font-family: 'Pretendard-Bold';
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      #submitLogin {
+        display: flex;
+        gap: 10px;
+      }
+
+      #goLogin,
+      #goAutoLogin,
+      #goSignup {
+        border: none;
+        border-radius: 20px;
+        background-color: rgb(208, 232, 255);
+        padding: 15px;
+        font-size: 17px;
+        font-family: 'Pretendard-Bold';
+        transition: background-color 0.2s;
+        cursor: pointer;
+      }
+
+      .unsignupableduetotacs {
+        background-color: lightgray !important;
+      }
+
+      #goLogin:hover,
+      #goAutoLogin:hover,
+      #goSignup:hover {
+        background-color: rgb(202, 225, 246);
+      }
+
+      #goLogin {
+        flex: 3;
+      }
+
+      #goAutoLogin {
+        flex: 1;
+      }
+
+      .signupReqs {
+        display: flex;
+      }
+
+      .inputInfo {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Pretendard-Bold';
+        font-size: 17px;
+      }
+
+      .inputArea {
+        display: block;
+        border: none;
+        background-color: white;
+        height: 50px;
+        font-size: 17px;
+        border-radius: 20px;
+        padding: 3px 20px;
+        font-family: 'Pretendard-Bold';
+        flex: 4;
+      }
+
+      #mailContainer,
+      #verifyCodeContainer {
+        display: flex;
+        align-items: center;
+      }
+
+      #signupEmail,
+      #signupVerifyCode {
+        font-family: 'Pretendard-Bold';
+        border: none;
+        flex: 1;
+        font-size: 17px;
+      }
+
+      #sendVerifyCode {
+        background-color: rgb(196, 217, 255);
+        border-radius: 100px;
+        padding: 5px 7px;
+        font-family: 'Pretendard-Bold';
+        cursor: pointer;
+      }
+
+      #verifyInfo {
+        font-family: 'Pretendard-Regular';
+        text-align: right;
+        color: gray;
+      }
+
+      #signupAccount {
+        display: block;
+        background-color: white;
+      }
+
+      #tacs,
+      #welcomeMSG {
+        background-color: white;
+        border-radius: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 20px;
+      }
+
+      #tacs > div,
+      #welcomeMSG > div {
+        font-family: 'Pretendard-Bold';
+        font-size: 17px;
+      }
+
+      #welcomeMSG {
+        background-color: rgb(196, 217, 255);
+        margin-bottom: 30px;
+      }
+
+      #tacs > p {
+        font-family: 'Pretendard-Regular';
+      }
+
+      #tacAgree {
+        font-family: 'Pretendard-Bold';
+        text-align: right;
+        margin-bottom: 30px;
+      }
+
+      #welcomeMSG > p {
+        font-family: 'Pretendard-Regular';
+      }
+
+      .highlight {
+        font-family: 'Pretendard-Bold';
+      }
+
+      .borderRed {
+        box-shadow: 0px 0px 7px rgba(255, 0, 0);
+        border: 1px solid red;
+      }
+
+      @keyframes shake {
+        0% {
+          transform: translate(1px, 1px) rotate(0deg);
+          box-shadow: 4px 4px 16px #0000006e;
+        }
+        10% {
+          transform: translate(-1px, -2px) rotate(-1deg);
+        }
+        20% {
+          transform: translate(-3px, 0px) rotate(1deg);
+        }
+        30% {
+          transform: translate(3px, 2px) rotate(0deg);
+        }
+        40% {
+          transform: translate(1px, -1px) rotate(1deg);
+        }
+        50% {
+          transform: translate(-1px, 2px) rotate(-1deg);
+        }
+        60% {
+          transform: translate(-3px, 1px) rotate(0deg);
+        }
+        70% {
+          transform: translate(3px, 1px) rotate(-1deg);
+          box-shadow: 4px 4px 16px rgba(255, 0, 0, 0.549);
+        }
+        80% {
+          transform: translate(-1px, -1px) rotate(1deg);
+        }
+        90% {
+          transform: translate(1px, 2px) rotate(0deg);
+        }
+        100% {
+          transform: translate(1px, -2px) rotate(-1deg);
+          box-shadow: 4px 4px 16px #0000006e;
+        }
+      }
+
+      .fontred {
+        color: red;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="core">
+        <div id="projectName">Hoorm 회원가입</div>
+        <!-- <div id="selection">
+          <div class="selectionButton" id="loginButton">로그인</div>
+          <div class="selectionButton" id="signupButton">회원가입</div>
+        </div> -->
+        <div id="actionWindow">
+          <!-- <div id="loginWindow">
+            <div id="typeSelection">
+              <div>
+                <input
+                  type="radio"
+                  name="type"
+                  value="student"
+                  id="student"
+                  checked
+                />
+                <label for="student">학생</label>
+              </div>
+              <div>
+                <input type="radio" name="type" value="teacher" id="teacher" />
+                <label for="teacher">선생님</label>
+              </div>
+              <div>
+                <input type="radio" name="type" value="admin" id="admin" />
+                <label for="admin">관리자</label>
+              </div>
+            </div>
+            <input
+              id="gcn"
+              class="idpw"
+              type="text"
+              placeholder="학반번호를 입력하세요"
+            />
+            <input
+              id="password"
+              class="idpw"
+              type="password"
+              placeholder="비밀번호를 입력하세요"
+            />
+            <div id="submitLogin">
+              <button id="goLogin">로그인</button>
+              <button id="goAutoLogin">자동 로그인</button>
+            </div>
+          </div> -->
+          <div id="signupWindow">
+            <!-- <div id="welcomeMSG">
+              <div>Welcome Message</div>
+              <p>
+                반갑습니다. <span>Hoorm</span>에 오신 걸 환영합니다.
+              </p>
+              <p>
+                <span class="highlight">청운네트워크 +</span>에서는
+                <span class="highlight">2024 움직임</span>, 청운급식네트워크
+                <span class="highlight">Poorm & Goorm</span>, 청운질문게시판
+                <span class="highlight">BlueBoard</span>를 이용하실 수 있습니다.
+              </p>
+              <p>이를 위해 회원가입 절차를 진행해주세요.</p>
+            </div> -->
+            <div class="signupReqs">
+              <div class="inputInfo">학반번호</div>
+              <input
+                class="inputArea"
+                type="number"
+                placeholder="예: 20416"
+                id="signupGcn"
+              />
+            </div>
+            <div class="signupReqs">
+              <div class="inputInfo">이름</div>
+              <input
+                class="inputArea"
+                type="text"
+                placeholder="이름을 입력하세요"
+                id="signupName"
+              />
+            </div>
+            <!-- <div class="signupReqs">
+              <div class="inputInfo">방호수</div>
+              <input
+                class="inputArea"
+                type="number"
+                placeholder="방호수을 입력하세요"
+                id="signupName"
+              />
+            </div> -->
+            <div class="signupReqs">
+              <div class="inputInfo">비밀번호</div>
+              <input
+                class="inputArea"
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+                id="signupPassword"
+              />
+            </div>
+
+            <!-- <div class="signupReqs">
+              <div class="inputInfo">계좌 은행</div>
+              <select name="bank" id="signupBank" class="inputArea">
+                <option value="none">--선택 안함--</option>
+                <option value="toss">토스뱅크</option>
+                <option value="kakao">카카오뱅크</option>
+                <option value="k">케이뱅크</option>
+                <option value="naver">네이버페이</option>
+                <option value="NH">NH콬뱅크</option>
+              </select>
+            </div> -->
+            <!-- <div class="signupReqs">
+              <div class="inputInfo">계좌번호</div>
+              <input
+                type="text"
+                placeholder="계좌번호를 입력하세요 (필수 아님)"
+                id="signupAccount"
+                class="inputArea"
+              />
+            </div> -->
+            <div class="signupReqs">
+              <div class="inputInfo">학교<br />메일주소</div>
+              <div class="inputArea" id="mailContainer">
+                <input
+                  type="text"
+                  placeholder="학교 메일주소를 입력하세요"
+                  id="signupEmail"
+                />
+                <div>@hcu.hs.kr</div>
+              </div>
+            </div>
+            <div class="signupReqs">
+              <div class="inputInfo">인증번호</div>
+              <div class="inputArea" id="verifyCodeContainer">
+                <input
+                  type="text"
+                  placeholder="인증번호를 입력하세요"
+                  id="signupVerifyCode"
+                />
+                <div id="sendVerifyCode">인증번호 보내기</div>
+              </div>
+            </div>
+            <div id="verifyInfo">
+              학교 메일에서 인증번호를 확인하세요.<br />스팸 메일함에 들어있을
+              수도 있습니다.
+            </div>
+
+            <!-- <div id="tacs">
+              <div>약관</div>
+              <p>
+                - 귀하의 계좌번호는 "Goorm"에서 희망식 구매자가 귀하의
+                계좌번호를 알고 송금하기 위해 복사하는 것을 제외한 용도로는 결코
+                이용되지 않습니다.
+              </p>
+              <p>
+                - "Goorm"에서 거래 희망글을 작성할 시 귀하의 기수, 학반번호,
+                이름이 타인에게 노출됩니다.
+              </p>
+              <p>
+                - "Goorm"에서 거래가 성사되었을 때 석식 구매자에게 귀하의
+                계좌번호가 노출됩니다.
+              </p>
+              <p>
+                - "BlueBoard"에서 귀하의 기수, 학반번호, 이름이 일반적인
+                상황에서 노출되지 않으며 관리자만 열람할 수 있습니다.
+              </p>
+              <p style="color: rgb(120, 134, 199); font-weight: bold">
+                - 비밀번호 찾기 기능을 지원하지 않으니 비밀번호를 잊어버렸을
+                때는 계정을 삭제한 후 재가입해야 합니다. (문의:
+                chungunnetworkplus@gmail.com)
+              </p>
+            </div> -->
+            <!-- <div id="tacAgree">
+              약관에 동의하십니까?<span class="fontred">*</span>
+              <input type="checkbox" id="checkbox" />
+            </div> -->
+            <button id="goSignup">회원가입</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const loginButton = document.querySelector('#loginButton');
+      const signupButton = document.querySelector('#signupButton');
+      const actionWindow = document.querySelector('#actionWindow');
+      const signupWindow = document.querySelector('#signupWindow');
+      const goLogin = document.querySelector('#goLogin');
+      const goAutoLogin = document.querySelector('#goAutoLogin');
+      const goSignup = document.querySelector('#goSignup');
+      const checkbox = document.querySelector('#checkbox');
+      const types = document.querySelectorAll("input[name='type']");
+      const gcn = document.querySelector('#gcn');
+      const password = document.querySelector('#password');
+      const sendVerifyCode = document.querySelector('#sendVerifyCode');
+
+      const actionWindowWidth = actionWindow.getBoundingClientRect().width;
+
+      let signupSubmitable = true;
+      let verifyCodeSendable = true;
+
+      sendVerifyCode.addEventListener('click', () => {
+        if (!verifyCodeSendable) return;
+        verifyCodeSendable = false;
+        const signupEmail = document.querySelector('#signupEmail');
+        if (signupEmail.value.trim() === '') {
+          return;
+        }
+        alert(`${signupEmail.value}@hcu.hs.kr로 인증번호를 전송했어요.`);
+        fetch(`/sendVerifyCode?address=${signupEmail.value}`)
+          .then((res) => res.json())
+          .then(() => {
+            verifyCodeSendable = true;
+          });
+      });
+
+      // types.forEach((type) => {
+      //   type.addEventListener('change', () => {
+      //     const typeValue = document.querySelector(
+      //       "input[name='type']:checked"
+      //     ).value;
+      //     switch (typeValue) {
+      //       case 'student':
+      //         gcn.placeholder = '학반번호를 입력하세요';
+      //         password.placeholder = '비밀번호를 입력하세요';
+      //         break;
+      //       case 'teacher':
+      //         gcn.placeholder = '성명을 입력하세요';
+      //         password.placeholder = '비밀번호를 입력하세요';
+      //         break;
+      //       case 'admin':
+      //         gcn.placeholder = 'Enter admin unique code';
+      //         password.placeholder = 'Enter password for admin account';
+      //         break;
+      //     }
+      //   });
+      // });
+
+      // function loginFunction() {
+      //   if (!loginSubmitable) return;
+      //   loginSubmitable = false;
+
+      //   const gcn = document.querySelector('#gcn').value;
+      //   const password = document.querySelector('#password').value;
+      //   const type = document.querySelector("input[name='type']:checked").value;
+
+      //   fetch('http://localhost:3001/home/login', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       type,
+      //       gcn,
+      //       password,
+      //     }),
+      //   })
+      //     .then((res) => res.json())
+      //     .then((result) => {
+      //       loginSubmitable = true;
+      //       if (result.error === 'SOMETHING WRONG') {
+      //         alert('SOMETHING WRONG');
+      //       } else if (result.error === 'NONE') {
+      //         if (localStorage.getItem('autologin') === 'true') {
+      //           document.cookie = `hash=${result.hash};Max-Age=34560000`;
+      //         } else {
+      //           document.cookie = `hash=${result.hash};Max-Age=5`;
+      //         }
+      //         window.location.href = '/members';
+      //       }
+      //     });
+      // }
+
+      // goLogin.addEventListener('click', () => {
+      //   localStorage.setItem('autologin', 'false');
+      //   loginFunction();
+      // });
+
+      // goAutoLogin.addEventListener('click', () => {
+      //   localStorage.setItem('autologin', 'true');
+      //   loginFunction();
+      // });
+
+      // checkbox.addEventListener('click', () => {
+      //   if (checkbox.checked) {
+      //     goSignup.classList.remove('unsignupableduetotacs');
+      //   } else {
+      //     goSignup.classList.add('unsignupableduetotacs');
+      //   }
+      // });
+
+      // password.addEventListener('keyup', (e) => {
+      //   if (e.key === 'Enter') {
+      //     goLogin.click();
+      //   }
+      // });
+
+      goSignup.addEventListener('click', () => {
+        if (!signupSubmitable) return;
+        // if (!checkbox.checked) return;
+        signupSubmitable = false;
+        let banFetch = false;
+
+        const signupGcn = document.querySelector('#signupGcn');
+        const signupPassword = document.querySelector('#signupPassword');
+        const signupName = document.querySelector('#signupName');
+        // const _signupBank = document.querySelector('#signupBank');
+        // const signupBank = _signupBank.options[_signupBank.selectedIndex];
+        const signupAccount = document.querySelector('#signupAccount');
+        const signupEmail = document.querySelector('#signupEmail');
+        const signupVerifyCode = document.querySelector('#signupVerifyCode');
+
+        const mailContainer = document.querySelector('#mailContainer');
+        const verifyCodeContainer = document.querySelector(
+          '#verifyCodeContainer'
+        );
+
+        signupGcn.classList.remove('borderRed');
+        signupPassword.classList.remove('borderRed');
+        signupName.classList.remove('borderRed');
+        mailContainer.classList.remove('borderRed');
+        verifyCodeContainer.classList.remove('borderRed');
+
+        if (signupGcn.value === '') {
+          signupGcn.classList.add('borderRed');
+          banFetch = true;
+        }
+
+        if (signupPassword.value === '') {
+          signupPassword.classList.add('borderRed');
+          banFetch = true;
+        }
+
+        if (signupName.value === '') {
+          signupName.classList.add('borderRed');
+          banFetch = true;
+        }
+
+        if (signupEmail.value === '') {
+          mailContainer.classList.add('borderRed');
+          banFetch = true;
+        }
+
+        if (signupVerifyCode.value === '') {
+          verifyCodeContainer.classList.add('borderRed');
+          banFetch = true;
+        }
+
+        if (banFetch) {
+          signupSubmitable = true;
+          signupWindow.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+          actionWindow.style.animation = 'shake 0.5s';
+          setTimeout(() => {
+            actionWindow.style.animation = '';
+          }, 500);
+          return;
+        }
+
+        fetch('/dosignup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            gcn: signupGcn.value,
+            password: signupPassword.value,
+            name: signupName.value,
+            email: signupEmail.value,
+            verifyCode: signupVerifyCode.value,
+          }),
+        })
+          .then((res) => res.json())
+          .then(({ error }) => {
+            signupSubmitable = true;
+            switch (error) {
+              case 'NONE':
+                alert('계정 생성 완료!');
+                history.back();
+                break;
+              case 'INPUT ERROR':
+                alert('입력에 문제 존재 -> 계정 생성 실패...');
+                break;
+              case 'ALREADY EXIST':
+                alert('이미 계정 존재 -> 계정 생성 실패...');
+                break;
+              case 'VERIFY WRONG':
+                alert('인증번호 틀림 -> 계정 생성 실패...');
+                break;
+              case 'USED EMAIL':
+                alert('이미 사용된 메일 주소 -> 계정 생성 실패...');
+                break;
+            }
+          });
+      });
+
+      // loginButton.click();
+    </script>
+  </body>
+</html>

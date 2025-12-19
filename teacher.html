@@ -56,7 +56,7 @@
         <option value="7">7반</option>
       </select>
 
-      <button onclick="orderTable()">확인</button>
+      <button onclick="orderTable()" id="checkitout">확인</button>
 
       <div class="warning">*학년이랑 반 모두 다 선택해야 뜹니다!!</div>
     </div>
@@ -75,7 +75,8 @@
 
     <script>
       let root = null;
-
+      const classSelect = document.querySelector('#classSelect');
+      const checkitout = document.querySelector('#checkitout');
       fetch('/schoolpeople')
         .then((res) => res.json())
         .then((result) => {
@@ -136,6 +137,10 @@
         tbody.innerHTML = '';
         order(root, tbody, filter);
       }
+
+      classSelect.addEventListener('change', () => {
+        checkitout.click();
+      });
     </script>
   </body>
 </html>

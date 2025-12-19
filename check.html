@@ -53,9 +53,10 @@
       const queryString = window.location.search;
       const params = new URLSearchParams(queryString);
       const gcn = params.get('gcn');
+      const password = params.get('password');
       const name = params.get('name');
 
-      if (gcn === null || name === null) {
+      if (gcn === null || password === null || name === null) {
         window.location.href = '/';
       }
 

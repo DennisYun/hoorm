@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/favicon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Hoorm | 모고후 귀사 도우미</title>
+    <style>
+      @font-face {
+        font-family: 'Pretendard-Bold';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
+          format('woff');
+      }
+      td,
+      th,
+      table {
+        font-size: 20px;
+      }
+      td,
+      th {
+        border: 2.5px solid darkslategray;
+      }
+      table {
+        width: 100%;
+        overflow: hidden;
+        border-collapse: collapse;
+        margin-top: 30px;
+        text-align: center;
+      }
+      th {
+        width: 100px;
+        background-color: rgb(196, 217, 255);
+      }
+      #floor {
+        display: flex;
+        gap: 0.5%;
+      }
+      h1 {
+        font-family: 'Pretendard-Bold';
+        font-size: 40px;
+      }
+      button:not(.nono) {
+        flex: 1;
+        font-size: 30px;
+        font-family: 'Pretendard-Bold';
+        border-radius: 100px;
+        border: 2.5px solid darkslategray;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19),
+          0 4px 13px rgba(0, 0, 0, 0.23);
+        background-color: rgb(232, 249, 255);
+        cursor: pointer;
+      }
+
+      input[type='checkbox'] {
+        width: 30px;
+        height: 30px;
+      }
+
+      /* #SUPERDUPERIMPORTANT { */
+      /* all: unset !important;
+        background-color: gray !important;
+        color: red !important;
+        font-size: 30px !important; */
+      /* } */
+    </style>
+  </head>
+  <body>
+    <h1>Hoorm | 모고후 귀사 도우미</h1>
+    <h2>학생 목록 변경</h2>
+    <!-- <div style="color: red; width: 600px; border: 1px solid red">
+      한번 변경 버튼 누르면 돌이킬 수 없음. 신중할 것! 형식 잘 못 맞췄을 때 어떤
+      일이 발생할지 모름. 형식 잘 지킬 것! 잘 변경되었는지 확인하고 싶을시
+      supabase에서 직접 데이터 베이스 보거나 선생님 화면에 접속하도록. 그리고
+      수정하면 지금까지 학사 갈거라고 체크한 거 다 날아감.
+    </div> -->
+    <textarea
+      name=""
+      id="changestudenttextarea"
+      style="width: 100%; height: 300px; resize: none"
+    ></textarea>
+    <button id="changestudent" class="nono">학생 목록 변경</button>
+
+    <br /><br /><br />
+
+    <h2>비밀번호 변경</h2>
+    <!-- <div style="color: red; width: 600px; border: 1px solid red">
+      비밀번호를 비운 상태로 제출하면 그 학반번호에 해당하는 계정 완전 삭제됨.
+    </div> -->
+
+    <input type="text" placeholder="학반번호" id="thegcn" /><br />
+    <input type="password" , placeholder="바꿀 비밀번호" id="thepw" /><br />
+    <button class="nono" id="thesubmit">적용</button>
+    <br /><br /><br />
+
+    <form>
+      <label
+        ><input type="radio" name="allowchange" value="설문허용" />설문
+        허용</label
+      >
+      <label
+        ><input type="radio" name="allowchange" value="설문불허" />설문
+        불허</label
+      >
+    </form>
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br /><br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+    <br /><br /><br />
+
+    <h2>대단히 위험한 행위</h2>
+    <div style="display: flex; justify-content: space-between">
+      <button
+        id="SUPERDUPERIMPORTANT"
+        class="nono"
+        style="background-color: red"
+      >
+        모든 학생의 귀사 여부 초기화!!<br />돌이킬 수 없음!!
+      </button>
+      <button class="nono" style="background-color: red" id="REMOVEALLACCOUNTS">
+        모든 학생의 계정 삭제!!<br />돌이킬 수 없음!!
+      </button>
+    </div>
+    <br /><br /><br />
+
+    <!-- <div id="floor"></div>
+    <table id="sheet">
+      <tr id="tr"></tr>
+    </table>
+
+    <br /><br /><br />
+    <br /><br /><br /> -->
+  </body>
+  <script>
+    const floor = document.querySelector('#floor');
+    const sheet = document.querySelector('#sheet tbody');
+    const tr = document.querySelector('#tr');
+    const SUPERDUPERIMPORTANT = document.querySelector('#SUPERDUPERIMPORTANT');
+    const allowchanges = document.querySelectorAll("input[name='allowchange']");
+    const changestudent = document.querySelector('#changestudent');
+    const changestudenttextarea = document.querySelector(
+      '#changestudenttextarea'
+    );
+    const REMOVEALLACCOUNTS = document.querySelector('#REMOVEALLACCOUNTS');
+
+    const thegcn = document.querySelector('#thegcn');
+    const thepw = document.querySelector('#thepw');
+    const thesubmit = document.querySelector('#thesubmit');
+
+    thesubmit.addEventListener('click', () => {
+      const gcnvalue = thegcn.value;
+      const pwvalue = thepw.value;
+      fetch(`/changepassword?gcn=${gcnvalue}&password=${pwvalue}`)
+        .then((res) => res.json())
+        .then((result) => {
+          alert('비밀번호 변경됨');
+        });
+    });
+
+    REMOVEALLACCOUNTS.addEventListener('click', () => {
+      fetch('/removeallaccounts')
+        .then((res) => res.json())
+        .then((result) => {
+          alert('I am inevitable');
+        });
+    });
+
+    fetch('/currentallow')
+      .then((res) => res.text())
+      .then((result) => {
+        if (result === 'yes') {
+          allowchanges[0].click();
+        }
+        if (result === 'no') {
+          allowchanges[1].click();
+        }
+        allowchanges.forEach((allowchange) => {
+          allowchange.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              fetch(`allowchange?state=${e.target.value}`).then(() => {
+                alert('상태 변경됨');
+              });
+            }
+          });
+        });
+      });
+
+    SUPERDUPERIMPORTANT.addEventListener('click', () => {
+      fetch('/resetall').then(() => {
+        alert('I am inevitable');
+        location.reload();
+      });
+    });
+
+    changestudent.addEventListener('click', () => {
+      fetch(
+        `/changestudent?textarea=${encodeURIComponent(
+          changestudenttextarea.value
+        )}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          alert('변경 완료!');
+        });
+      console.log(changestudenttextarea.value);
+    });
+
+    fetch('/allpeople')
+      .then((res) => res.json())
+      .then((result) => {
+        changestudenttextarea.value = result.csv;
+      });
+  </script>
+</html>

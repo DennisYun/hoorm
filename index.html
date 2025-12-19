@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon" />
 
-    <title>Hoorm</title>
+    <title>Hoorm | 모고후 귀사 도우미</title>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
       @font-face {
@@ -13,12 +13,21 @@
         src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
           format('woff');
       }
+      @font-face {
+        font-family: 'Pretendard-Bold';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff')
+          format('woff');
+      }
       body {
-        font-family: 'GmarketSansMedium', sans-serif;
+        font-family: 'Pretendard-Bold', sans-serif;
         margin: 0;
         padding: 0;
         background: #fff;
         color: #000;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
       }
 
       /* 새로 추가된 세로모드 경고 스타일 */
@@ -42,18 +51,22 @@
 
       .all {
         background-color: rgb(198, 228, 255);
-        margin: 10px 100px 100px;
+        /* margin: 10px 100px 100px; */
         display: flex;
         justify-content: center;
         align-items: center;
         height: 50vh;
+        width: 900px;
         border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19),
+          0 4px 13px rgba(0, 0, 0, 0.23);
+        border: 2.5px solid darkslategray;
       }
       .login {
-        font-size: clamp(10px, 2vw, 18px);
+        font-size: 16px;
       }
       .title {
-        font-size: clamp(20px, 2vw, 30px);
+        font-size: 30px;
         font-weight: 700;
         padding: 10px;
         margin-right: 30px;
@@ -62,6 +75,9 @@
         font-size: 16px;
         padding: 20px;
       }
+      .checkbox {
+        width: 100%;
+      }
       .checkbox input[type='radio'] {
         width: 20px;
         height: 20px;
@@ -69,8 +85,7 @@
         cursor: pointer;
       }
       .checkbox label {
-        margin-left: 35px;
-        font-size: clamp(13px, 1.5vw, 18px);
+        font-size: 15px;
         cursor: pointer;
         user-select: none;
         display: inline-flex;
@@ -86,7 +101,10 @@
       }
       .programmer {
         color: rgb(182, 181, 181);
-        font-size: 18px;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .input-gcn,
       .input-name {
@@ -95,17 +113,18 @@
       .input-gcn {
         margin-top: 12px;
       }
-      input[type='text'] {
+      input[type='text'],
+      input[type='password'] {
         font-size: 18px;
         padding: 6px 8px;
         width: 150px;
-        font-family: 'GmarketSansMedium';
+        font-family: 'Pretendard-Bold';
         border: 1px solid #ccc;
         border-radius: 4px;
       }
       button {
         font-size: 16px;
-        font-family: 'GmarketSansMedium';
+        font-family: 'Pretendard-Bold';
         color: black;
         background-color: aliceblue;
         border: 1px solid;
@@ -121,6 +140,33 @@
         display: flex;
         gap: 10px;
       }
+      #gcninput,
+      #nameinput {
+        width: 100%;
+        border-radius: 20px;
+        font-size: 17px;
+        padding: 3px 20px;
+        height: 50px;
+        border: none;
+        margin-top: 5px;
+        box-sizing: border-box;
+        font-family: 'Pretendard-Bold';
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      button:not(.nono) {
+        font-size: 20px;
+        font-family: 'Pretendard-Bold';
+        border-radius: 100px;
+        border: 2.5px solid darkslategray;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19),
+          0 4px 13px rgba(0, 0, 0, 0.23);
+        background-color: rgb(232, 249, 255);
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -129,22 +175,25 @@
       이 페이지는 가로모드에서만 이용 가능합니다.<br />화면을 가로로 돌려주세요.
     </div>
 
-    <div
+    <!-- <div
       id="g_id_onload"
       data-client_id="968179955551-ihoe25vh1ls7quuomf7epvnltr4f3l64.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
       data-auto_select="false"
       data-itp_support="true"
-    ></div>
+    ></div> -->
 
     <div class="logo-container">
-      <img src="/hoorm" alt="Hoorm 로고" width="150" />
+      <img src="/hoorm" alt="Hoorm 로고" width="200" />
       <div class="programmer">
-        made by 44대 생활부장 권효주, 2024 웹진 제작자 윤동현
+        made by HCU22기 44대 생활부장 권효주, 2024 웹진 제작자 윤동현
       </div>
+      <button id="signup">
+        <a href="/signup" style="all: unset; cursor: pointer">회원가입</a>
+      </button>
     </div>
 
-    <div id="login">
+    <!-- <div id="login">
       <div style="padding-left: 100px">필히 학교 계정으로 로그인 하시오!!</div>
       <div
         class="g_id_signin"
@@ -157,7 +206,7 @@
       ></div>
       <p id="userEmail"></p>
       <p id="userName"></p>
-    </div>
+    </div> -->
 
     <div class="all">
       <div class="title">학번번호와 이름을<br />입력해주세요</div>
@@ -180,16 +229,19 @@
               id="checkteacher"
             />선생님</label
           >
+          <label for="checkcouncil2">
+            <input type="radio" name="identity" id="checkcouncil2" />학생회2
+          </label>
         </div>
 
-        <div id="input-group" style="padding-left: 45px">
+        <div id="input-group">
           <div class="input-gcn">
             <label id="gcn-label" for="gcninput">학반번호</label><br />
-            <input type="text" id="gcninput" autocomplete="off" />
+            <input type="number" id="gcninput" autocomplete="off" />
           </div>
           <div class="input-name">
-            <label for="nameinput">이름</label><br />
-            <input type="text" id="nameinput" autocomplete="off" />
+            <label for="nameinput">비밀번호</label><br />
+            <input id="nameinput" autocomplete="off" type="password" />
           </div>
           <button id="submit-btn">확인</button>
         </div>
@@ -222,35 +274,35 @@
       window.addEventListener('orientationchange', checkOrientation);
       window.addEventListener('load', checkOrientation);
 
-      let myname = '';
-      function base64UrlDecodeUtf8(base64Url) {
-        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        while (base64.length % 4) base64 += '=';
-        let binary = atob(base64);
-        let bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
-        let decoded = new TextDecoder().decode(bytes);
-        return decoded;
-      }
+      // let myname = '';
+      // function base64UrlDecodeUtf8(base64Url) {
+      //   let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      //   while (base64.length % 4) base64 += '=';
+      //   let binary = atob(base64);
+      //   let bytes = Uint8Array.from(binary, (c) => c.charCodeAt(0));
+      //   let decoded = new TextDecoder().decode(bytes);
+      //   return decoded;
+      // }
 
-      function parseJwt(token) {
-        let payload = token.split('.')[1];
-        return JSON.parse(base64UrlDecodeUtf8(payload));
-      }
+      // function parseJwt(token) {
+      //   let payload = token.split('.')[1];
+      //   return JSON.parse(base64UrlDecodeUtf8(payload));
+      // }
 
-      function handleCredentialResponse(response) {
-        const token = response.credential;
-        const payload = parseJwt(token);
-        console.log(payload);
-        document.getElementById('userName').textContent = payload.name;
-        document.getElementById('userEmail').textContent = payload.email;
+      // function handleCredentialResponse(response) {
+      //   const token = response.credential;
+      //   const payload = parseJwt(token);
+      //   console.log(payload);
+      //   document.getElementById('userName').textContent = payload.name;
+      //   document.getElementById('userEmail').textContent = payload.email;
 
-        if (payload.email.includes('@hcu.hs.kr')) {
-          myname = payload.name;
-        } else {
-          alert('학교 계정으로 로그인하시오');
-          location.reload();
-        }
-      }
+      //   if (payload.email.includes('@hcu.hs.kr')) {
+      //     myname = payload.name;
+      //   } else {
+      //     alert('학교 계정으로 로그인하시오');
+      //     location.reload();
+      //   }
+      // }
 
       const radios = document.querySelectorAll('input[name="identity"]');
       const inputGroup = document.getElementById('input-group');
@@ -261,6 +313,21 @@
       const gcninput = document.querySelector('#gcninput');
       const nameinput = document.querySelector('#nameinput');
       const checkstudent = document.querySelector('#checkstudent');
+      // 기본으로 '학생' 라디오버튼 선택
+
+      nameinput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submitBtn.click();
+        }
+      });
+
+      gcninput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submitBtn.click();
+        }
+      });
 
       inputGroup.style.display = 'none';
 
@@ -268,75 +335,75 @@
         radio.addEventListener('change', () => {
           inputGroup.style.display = 'block';
 
+          nameinput.value = '';
+          gcninput.value = '';
+
           if (checkstudent.checked) {
             inputName.style.display = 'block';
             gcnLabel.textContent = '학반번호';
+            gcninput.type = 'number';
           } else {
             inputName.style.display = 'none';
             nameinput.value = '';
             gcnLabel.textContent = '고유코드';
+            gcninput.type = 'password';
           }
+          gcninput.focus();
         });
       });
 
-      fetch('/allpeople')
-        .then((res) => res.json())
-        .then((array) => {
-          function checkMatch(gcnInput, nameInput) {
-            const result = array.find((obj) => obj.gcn === Number(gcnInput));
-            if (!result) return '해당 학반번호를 가진 학생이 없습니다.';
-            if (result.name !== nameInput) return '이름이 일치하지 않습니다.';
-            return '이름이 일치합니다.';
+      // fetch('/allpeople')
+      //   .then((res) => res.json())
+      //   .then((array) => {
+      // function checkMatch(gcnInput, nameInput) {
+      //   const result = array.find((obj) => obj.gcn === Number(gcnInput));
+      //   if (!result) return '해당 학반번호를 가진 학생이 없습니다.';
+      //   if (result.name !== nameInput) return '이름이 일치하지 않습니다.';
+      //   return '이름이 일치합니다.';
+      // }
+
+      submitBtn.addEventListener('click', () => {
+        const gcnValue = gcninput.value.trim();
+        const gcnNumber = Number(gcnValue);
+        const isStudent = checkstudent.checked;
+        const isCouncil = document.getElementById('checkcouncil').checked;
+        const isTeacher = document.getElementById('checkteacher').checked;
+        const isCouncil2 = document.getElementById('checkcouncil2').checked;
+
+        if (!gcnValue) {
+          return alert('학반번호 또는 고유코드를 입력해주세요.');
+        }
+
+        if (isStudent) {
+          if (gcnNumber <= 10101 || gcnNumber >= 30731) {
+            return alert('학번이 옳지 못한 입력입니다.');
           }
 
-          submitBtn.addEventListener('click', () => {
-            const gcnValue = gcninput.value.trim();
-            const gcnNumber = Number(gcnValue);
-            const isStudent = checkstudent.checked;
-            const isCouncil = document.getElementById('checkcouncil').checked;
-            const isTeacher = document.getElementById('checkteacher').checked;
+          const nameValue = nameinput.value.trim();
+          if (!nameValue) return alert('이름을 입력해주세요.');
 
-            if (!gcnValue) {
-              return alert('학반번호 또는 고유코드를 입력해주세요.');
-            }
+          // if (nameValue !== myname) {
+          //   alert(
+          //     '구글계정을 로그인하지 않았거나 구글계정과의 이름이 일치하지 않습니다.'
+          //   );
+          //   location.reload();
+          //   return;
+          // }
 
-            if (isStudent) {
-              if (gcnNumber <= 10101 || gcnNumber >= 30731) {
-                return alert('학번이 옳지 못한 입력입니다.');
-              }
+          window.location.href = `/check?gcn=${gcnValue}&password=${nameValue}`;
+        } else if (isCouncil) {
+          window.location.href = `/dorm?pw=${gcnValue}`;
+        } else if (isTeacher) {
+          window.location.href = `/teacher?pw=${gcnValue}`;
+        } else if (isCouncil2) {
+          window.location.href = `/security?pw=${gcnValue}`;
+        } else {
+          alert('신분을 선택해주세요.');
+        }
+      });
+      // });
 
-              const nameValue = nameinput.value.trim();
-              if (!nameValue) return alert('이름을 입력해주세요.');
-
-              if (nameValue !== myname) {
-                alert(
-                  '구글계정을 로그인하지 않았거나 구글계정과의 이름이 일치하지 않습니다.'
-                );
-                location.reload();
-                return;
-              }
-
-              const result = checkMatch(gcnValue, nameValue);
-              alert(result);
-
-              if (result === '이름이 일치합니다.') {
-                window.location.href = `/check?gcn=${gcnValue}&name=${nameValue}&secret=${(
-                  (Number(gcnValue) - 1234) ** 2 /
-                  7
-                ).toFixed(0)}`;
-              }
-            } else if (isCouncil) {
-              window.location.href = `/dorm?pw=${gcnValue}`;
-            } else if (isTeacher) {
-              window.location.href = `/teacher?pw=${gcnValue}`;
-            } else {
-              alert('신분을 선택해주세요.');
-            }
-          });
-
-          // 기본으로 '학생' 라디오버튼 선택
-          checkstudent.click();
-        });
+      checkstudent.click();
     </script>
   </body>
 </html>
